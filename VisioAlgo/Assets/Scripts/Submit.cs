@@ -29,8 +29,7 @@ public class Submit : MonoBehaviour {
             {
 
                 if (c != '\f')
-                    tmp += c;
-                c = (char)runtime.StandardOutput.Read();
+                    tmp += c; 
                 if (sw.Elapsed.TotalMilliseconds > 2000)
                 {
                     sw.Stop();
@@ -41,15 +40,19 @@ public class Submit : MonoBehaviour {
                     ToastManager.Show("Time Limit Exceeded", 2.0f, Color.white, Color.red, 20);
                     return;
                 }
+            c = (char)runtime.StandardOutput.Read();
+        }
+        //tmp = runtime.StandardOutput.ReadToEnd ();
+        sw.Stop();
+        runtime.Close();
 
-            }
-			//tmp = runtime.StandardOutput.ReadToEnd ();
-            runtime.Close();
+        list.text = null;
+        char[] limit = new char[2];
+        limit[0] = '/';
+        limit[1] = 'f';
+        string[] str = tmp.Split(limit);
 
-            list.text = null;
-
-            list.Select();
-
+        int index = 0;
 		for (int i = 1; i <= 10; ++i)
             {
                 FS = new FileStream("results//output" + i.ToString() + ".txt", FileMode.Open);
@@ -62,6 +65,7 @@ public class Submit : MonoBehaviour {
                     return;
                 }
 			SR.Close();FS.Close();
+            index += 2;
             }
             ToastManager.Show("Accepted", 2.0f, Color.white, Color.green, 20);
         
