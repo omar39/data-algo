@@ -14,6 +14,7 @@ public class AlgoDropdown : MonoBehaviour {
         else if (index == 1)
         {
             Debug.Log("going to the AlgoProblemSet");
+            SceneManager.LoadScene("AlgoProblemSet");
         }
     }
 }

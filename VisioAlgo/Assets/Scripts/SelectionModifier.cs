@@ -17,7 +17,7 @@ public class SelectionModifier : MonoBehaviour {
         OptionData option4 = new OptionData();
         option.text = "Balanced Brackets";
         DsOptions.Add(option);
-        option2.text = "Balanced Brackets(Advanced)";
+        option2.text = "Balanced ";
         DsOptions.Add(option2);
         option3.text = "Seive or Sieve ?";
         AlgoOptions.Add(option3);

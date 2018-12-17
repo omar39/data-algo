@@ -12,6 +12,7 @@ public class DSDropdown : MonoBehaviour {
         else if( index == 1)
         {
             Debug.Log("going to the DSProblemSet");
+            SceneManager.LoadScene("DSProblemSet");
         }
     }
 }

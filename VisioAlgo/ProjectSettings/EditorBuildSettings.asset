@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DSMenu.unity
     guid: 123d3511e360d174491100896dac1527
+  - enabled: 1
+    path: Assets/Scenes/DSProblemSet.unity
+    guid: ad6c64bf7dad3d345895185bae842b42
+  - enabled: 1
+    path: Assets/Scenes/AlgoProblemSet.unity
+    guid: 46b3698aef16baf428798a559b469fad
   m_configObjects: {}

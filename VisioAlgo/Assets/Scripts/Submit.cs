@@ -12,6 +12,8 @@ public class Submit : MonoBehaviour {
     public InputField list;
 	public InputField input;
     public MaterialButton btn;
+    public MaterialDropdown Problem_list;
+    public MaterialDropdown Topic_list;
     FileStream FS;
     ProcessStartInfo processinfo;
     void submit()
@@ -22,6 +24,8 @@ public class Submit : MonoBehaviour {
             processinfo.RedirectStandardError = true;
             processinfo.RedirectStandardOutput = true;
             var runtime = Process.Start(processinfo);
+            string path = "Problems" + @"\" +Topic_list.currentlySelected.ToString()+ @"\" + Problem_list.currentlySelected.ToString();
+            runtime.StandardInput.WriteLine(path + @"\input");
             string tmp = "";
             char c = (char)runtime.StandardOutput.Read();
             Stopwatch sw = Stopwatch.StartNew();
@@ -55,7 +59,7 @@ public class Submit : MonoBehaviour {
         int index = 0;
 		for (int i = 1; i <= 10; ++i)
             {
-                FS = new FileStream("results//output" + i.ToString() + ".txt", FileMode.Open);
+                FS = new FileStream(path + @"\output" + @"\output" + i.ToString() + ".txt", FileMode.Open);
 				StreamReader SR = new StreamReader(FS);
                 string res = SR.ReadToEnd();
                 if (!tmp.Contains(res))
