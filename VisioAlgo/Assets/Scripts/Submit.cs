@@ -18,14 +18,19 @@ public class Submit : MonoBehaviour {
     ProcessStartInfo processinfo;
     void submit()
     {
+        try
+        {
+
             processinfo = new ProcessStartInfo("cmd.exe", "cmd /c start /b submit.bat");
-            processinfo.CreateNoWindow = true;
+           // processinfo.CreateNoWindow = true;
             processinfo.UseShellExecute = false;
             processinfo.RedirectStandardError = true;
             processinfo.RedirectStandardOutput = true;
+            processinfo.RedirectStandardInput = true;
             var runtime = Process.Start(processinfo);
-            string path = "Problems" + @"\" +Topic_list.currentlySelected.ToString()+ @"\" + Problem_list.currentlySelected.ToString();
+            string path = "Problems" + @"\" + Topic_list.currentlySelected.ToString() + @"\" + Problem_list.currentlySelected.ToString();
             runtime.StandardInput.WriteLine(path + @"\input");
+            UnityEngine.Debug.Log(path + @"\input");
             string tmp = "";
             char c = (char)runtime.StandardOutput.Read();
             Stopwatch sw = Stopwatch.StartNew();
@@ -33,7 +38,7 @@ public class Submit : MonoBehaviour {
             {
 
                 if (c != '\f')
-                    tmp += c; 
+                    tmp += c;
                 if (sw.Elapsed.TotalMilliseconds > 2000)
                 {
                     sw.Stop();
@@ -44,35 +49,36 @@ public class Submit : MonoBehaviour {
                     ToastManager.Show("Time Limit Exceeded", 2.0f, Color.white, Color.red, 20);
                     return;
                 }
-            c = (char)runtime.StandardOutput.Read();
-        }
-        //tmp = runtime.StandardOutput.ReadToEnd ();
-        sw.Stop();
-        runtime.Close();
+                c = (char)runtime.StandardOutput.Read();
+            }
+            //tmp = runtime.StandardOutput.ReadToEnd ();
+            sw.Stop();
+            runtime.Close();
 
-        list.text = null;
-        char[] limit = new char[2];
-        limit[0] = '/';
-        limit[1] = 'f';
-        string[] str = tmp.Split(limit);
+            list.text = null;
+            char[] limit = new char[2];
+            limit[0] = '/';
+            limit[1] = 'f';
+            string[] str = tmp.Split(limit);
 
-        int index = 0;
-		for (int i = 1; i <= 10; ++i)
+            int index = 0;
+            for (int i = 1; i <= 10; ++i)
             {
                 FS = new FileStream(path + @"\output" + @"\output" + i.ToString() + ".txt", FileMode.Open);
-				StreamReader SR = new StreamReader(FS);
+                StreamReader SR = new StreamReader(FS);
                 string res = SR.ReadToEnd();
                 if (!tmp.Contains(res))
                 {
                     FS.Close(); SR.Close();
-					ToastManager.Show("Wrong Answer on Test " + i.ToString(), 2.0f, Color.white, Color.red, 20);
+                    ToastManager.Show("Wrong Answer on Test " + i.ToString(), 2.0f, Color.white, Color.red, 20);
                     return;
                 }
-			SR.Close();FS.Close();
-            index += 2;
+                SR.Close(); FS.Close();
+                index += 2;
             }
             ToastManager.Show("Accepted", 2.0f, Color.white, Color.green, 20);
-        
+        }
+        catch (Exception exc) { UnityEngine.Debug.Log(exc.Message); return; }
         
     }
     void compile()
@@ -107,9 +113,12 @@ public class Submit : MonoBehaviour {
     public void Test()
     {
         //btn.enabled = false;
-       Invoke("compile", 0);
-		if (list.text.Length <= 1)
-            Invoke("submit", 0);
+        compile();
+        if (list.text.Length <= 1)
+        {
+            submit();
+        }
+
         else
             ToastManager.Show("Compilation Error", 2.0f, Color.white, Color.blue, 14);
         //btn.enabled = true;

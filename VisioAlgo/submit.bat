@@ -1,11 +1,12 @@
 @echo off
-xcopy /q /y a.exe tests
 cd %cd%
-cd tests
+set /p place=
+xcopy /q /i /y a.exe %place%
+cd %place%
 cls
-for /l %%a in (1, 1, 10) do (
- a.exe<input%%a.txt
- echo /f
+for /l %%x in (1, 1, 10) do (
+a.exe<input%%x.txt
+echo /f
 )
 del /f a.exe
 exit

@@ -454,19 +454,17 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\nThis cinema\u2019s system is a little bit different, they don\u2019t
-    start entering people unless all of them are standing in the queue (people are
-    standing in groups), people enter also in groups but it must contain X members
-    or less if no other way.\r\n\r\nCan you tell the number of groups that will be
-    separated and all it\u2019s  members won\u2019t enter together? Remember that
-    you can\u2019t change your position in the queue.\r\n\r\n \r\nInput:\r\n\nInput
-    consists of 3 lines.\r\nFirst Line N, number of groups standing in the queue.\r\n(
-    1 <= N >= 100 )\r\n\nSecond Line consists of N integers, number of people in each
-    group.  \r\na0, a1, a2, \u2026. an-1 , ( 1 <= ai >= 500 ) \r\n\nThird Line X,
-    maximum number of people that enter each time.\r\n( 1 <= X >= 10)\r\n\r\n\r\nOutput:\r\nThe
-    number of unlucky groups that will be separated.\r\n\r\n \r\n\r\n\r\n\r\nSample:\r\n\r\nInput:\r\n8\r\n3
-    5 1 4 2 3 2 1\r\n6\r\nOutput:\r\n2\r\n\r\nInput:\r\n5\r\n1 1 1 1 1\r\n1\r\nOutput:\r\n0\r\n\r\n\r\nInput:\r\n5\r\n6
-    2 4 3 3\r\n1\r\nOutput:\r\n5\r\n"
+  m_Text: "This cinema\u2019s system is a little bit different, they don\u2019t start
+    entering people unless all of them are standing in the queue (people are standing
+    in groups), people enter also in groups but it must contain X members or less
+    if no other way.\r\n\r\nCan you tell the number of groups that will be separated
+    and all it\u2019s  members won\u2019t enter together? Remember that you can\u2019t
+    change your position in the queue.\r\n\r\n \r\nInput:\r\n\nInput consists of 3
+    lines.\r\nFirst Line N, number of groups standing in the queue.\r\n( 1 <= N <=
+    100 )\r\nSecond Line consists of N integers, number of people in each group.  \r\na0,
+    a1, a2, \u2026. an-1 , ( 1 <= ai <= 500 ) \r\nThird Line X, maximum number of
+    people that enter each time.\r\n( 1 <= X <= 10)\r\n\r\n\r\nOutput:\r\nThe number
+    of unlucky groups that will be separated.\r\n"
 --- !u!222 &45699191
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -520,7 +518,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 206, y: -53.999992}
-  m_SizeDelta: {x: 193.09998, y: 0}
+  m_SizeDelta: {x: 193.09998, y: 32.723927}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &49013170
 MonoBehaviour:
@@ -860,7 +858,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: -20}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 56, y: 56}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &49414625
 MonoBehaviour:
@@ -2455,7 +2453,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -212.90001, y: 170}
-  m_SizeDelta: {x: 226.8, y: 32.723927}
+  m_SizeDelta: {x: 226.8, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &297535777
 MonoBehaviour:
@@ -2620,10 +2618,10 @@ RectTransform:
   m_Father: {fileID: 1173397928}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 49.69325, y: -7.3619633}
+  m_SizeDelta: {x: 99.3865, y: 14.723926}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &301550954
 MonoBehaviour:
@@ -2704,7 +2702,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -30, y: -18.000002}
+  m_SizeDelta: {x: -30, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &332819276
 MonoBehaviour:
@@ -3242,7 +3240,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 284, y: -10}
-  m_SizeDelta: {x: 52.085888, y: 32.723927}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &377705682
 CanvasGroup:
@@ -3443,7 +3441,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 24, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &384726115
 MonoBehaviour:
@@ -4088,7 +4086,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -212.9, y: 235}
-  m_SizeDelta: {x: 226.8, y: 32.723927}
+  m_SizeDelta: {x: 226.8, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &438152528
 MonoBehaviour:
@@ -4319,7 +4317,7 @@ MonoBehaviour:
   m_OptionDataList:
     m_ImageType: 1
     m_Options:
-    - m_Text: Data Structures
+    - m_Text: Algorithm
       m_ImageData:
         m_ImageDataType: 1
         m_Sprite: {fileID: 0}
@@ -4328,7 +4326,7 @@ MonoBehaviour:
             m_Name: 
             m_Unicode: 
           m_Font: {fileID: 0}
-    - m_Text: Algorithms
+    - m_Text: Data Structures
       m_ImageData:
         m_ImageDataType: 1
         m_Sprite: {fileID: 0}
@@ -4700,7 +4698,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -30, y: -18.000002}
+  m_SizeDelta: {x: -30, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &491705923
 MonoBehaviour:
@@ -5886,7 +5884,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -30, y: -18.000002}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &621339371
 MonoBehaviour:
@@ -6284,10 +6282,10 @@ RectTransform:
   m_Father: {fileID: 1241102421}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 49.69325, y: -7.3619633}
+  m_SizeDelta: {x: 99.3865, y: 14.723926}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &690977822
 MonoBehaviour:
@@ -6617,7 +6615,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -29.999998, y: -18.000002}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &752506273
 MonoBehaviour:
@@ -7438,7 +7436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &845467838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8638,7 +8636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1010490460
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10060,7 +10058,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -205, y: -54}
-  m_SizeDelta: {x: 193.1, y: 0}
+  m_SizeDelta: {x: 193.1, y: 32.723927}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1169963189
 MonoBehaviour:
@@ -10396,7 +10394,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -30, y: 0}
+  m_SizeDelta: {x: -30, y: -18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1173397929
 MonoBehaviour:
@@ -11387,7 +11385,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -30, y: 0}
+  m_SizeDelta: {x: -30, y: -18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1241102422
 MonoBehaviour:
@@ -14250,10 +14248,10 @@ RectTransform:
   m_Father: {fileID: 491705922}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 59.81595, y: -7.3619623}
-  m_SizeDelta: {x: 119.6319, y: 14.723925}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1716298079
 GameObject:
@@ -14287,10 +14285,10 @@ RectTransform:
   m_Father: {fileID: 332819275}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50.613495, y: -7.3619623}
-  m_SizeDelta: {x: 101.22699, y: 14.723925}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1716298081
 MonoBehaviour:
@@ -15048,7 +15046,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 275, y: 204}
-  m_SizeDelta: {x: 70.4908, y: 32.723927}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1828254946
 CanvasGroup:
