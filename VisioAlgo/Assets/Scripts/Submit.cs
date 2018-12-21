@@ -15,51 +15,57 @@ public class Submit : MonoBehaviour {
     public MaterialDropdown Problem_list;
     public MaterialDropdown Topic_list;
     FileStream FS;
-    ProcessStartInfo processinfo;
+   // ProcessStartInfo processinfo;
     void submit()
     {
         try
         {
-
-            processinfo = new ProcessStartInfo("cmd.exe", "cmd /c start /b submit.bat");
-           // processinfo.CreateNoWindow = true;
-            processinfo.UseShellExecute = false;
-            processinfo.RedirectStandardError = true;
-            processinfo.RedirectStandardOutput = true;
+            string path = Directory.GetCurrentDirectory() + @"Problems\" + Topic_list.currentlySelected + @"\" + Problem_list.currentlySelected;
+            ProcessStartInfo processinfo = new ProcessStartInfo("a.exe");
             processinfo.RedirectStandardInput = true;
-            var runtime = Process.Start(processinfo);
-            string path = "Problems" + @"\" + Topic_list.currentlySelected.ToString() + @"\" + Problem_list.currentlySelected.ToString();
-            runtime.StandardInput.WriteLine(path + @"\input");
-            UnityEngine.Debug.Log(path + @"\input");
-            string tmp = "";
-            char c = (char)runtime.StandardOutput.Read();
-            Stopwatch sw = Stopwatch.StartNew();
-            while (sw.Elapsed.TotalMilliseconds < 2000 && c != '\uffff' && tmp.Length <= 10000000)
+            processinfo.RedirectStandardInput = true;
+            processinfo.UseShellExecute = false;
+            processinfo.CreateNoWindow = true;
+            FileStream FS;
+            string[] ans = new string[10];
+            for (int i = 1; i <= 10; ++i)
             {
-
-                if (c != '\f')
-                    tmp += c;
-                if (sw.Elapsed.TotalMilliseconds > 2000)
+                
+                string tmp = "";
+                FS = new FileStream(path + @"\input" + @"\input" + i.ToString() + ".txt", FileMode.Open);
+                StreamReader SR = new StreamReader(FS);
+                SR.Close();FS.Close();
+                Process runtime = Process.Start(processinfo);
+                runtime.StandardInput.WriteLine(SR.ReadToEnd());
+                char c = (char)runtime.StandardOutput.Read();
+                Stopwatch sw = Stopwatch.StartNew();
+                while (sw.Elapsed.TotalMilliseconds < 2000 && c != '\uffff' && tmp.Length <= 10000000)
                 {
-                    sw.Stop();
-                    foreach (var process in Process.GetProcessesByName("a"))
-                    {
-                        process.Kill();
-                    }
-                    ToastManager.Show("Time Limit Exceeded", 2.0f, Color.white, Color.red, 20);
-                    return;
-                }
-                c = (char)runtime.StandardOutput.Read();
-            }
-            //tmp = runtime.StandardOutput.ReadToEnd ();
-            sw.Stop();
-            runtime.Close();
 
-            list.text = null;
-            char[] limit = new char[2];
-            limit[0] = '/';
-            limit[1] = 'f';
-            string[] str = tmp.Split(limit);
+                    if (c != '\f')
+                        tmp += c;
+                    if (sw.Elapsed.TotalMilliseconds > 2000)
+                    {
+                        sw.Stop();
+                        foreach (var process in Process.GetProcessesByName("a"))
+                        {
+                            process.Kill();
+                        }
+                        ToastManager.Show("Time Limit Exceeded on Test " + i.ToString(), 2.0f, Color.white, Color.red, 20);
+                        return;
+                    }
+                    c = (char)runtime.StandardOutput.Read();
+                }
+                //tmp = runtime.StandardOutput.ReadToEnd ();
+                sw.Stop();
+                runtime.Close();
+                ans[i - 1] = tmp;
+            }
+            //list.text = null;
+            //char[] limit = new char[2];
+            //limit[0] = '/';
+            //limit[1] = 'f';
+            //string[] str = tmp.Split(limit);
 
             int index = 0;
             for (int i = 1; i <= 10; ++i)
@@ -67,9 +73,10 @@ public class Submit : MonoBehaviour {
                 FS = new FileStream(path + @"\output" + @"\output" + i.ToString() + ".txt", FileMode.Open);
                 StreamReader SR = new StreamReader(FS);
                 string res = SR.ReadToEnd();
-                if (!tmp.Contains(res))
+                if (!ans[i-1].Contains(res))
                 {
                     FS.Close(); SR.Close();
+                   // UnityEngine.Debug.Log("expected " + res +" found "  + str[i]);
                     ToastManager.Show("Wrong Answer on Test " + i.ToString(), 2.0f, Color.white, Color.red, 20);
                     return;
                 }
@@ -92,7 +99,7 @@ public class Submit : MonoBehaviour {
 		SW.Close();FS.Close();
         //calling the batch file to compile
         list.text = "";
-        processinfo = new ProcessStartInfo("cmd.exe", "cmd /c start /b compile.bat");
+       ProcessStartInfo processinfo = new ProcessStartInfo("cmd.exe", "cmd /c start /b compile.bat");
         processinfo.CreateNoWindow = true;
         processinfo.UseShellExecute = false;
         processinfo.RedirectStandardError = true;
@@ -103,27 +110,9 @@ public class Submit : MonoBehaviour {
         process.Close();
 
     }
-    public void Compile()
-    {
-       // btn.enabled = false;
-		compile();
-        //btn.enabled = true;
-        ToastManager.Show("Compilation compeleted.");
-    }
-    public void Test()
-    {
-        //btn.enabled = false;
-        compile();
-        if (list.text.Length <= 1)
-        {
-            submit();
-        }
-
-        else
-            ToastManager.Show("Compilation Error", 2.0f, Color.white, Color.blue, 14);
-        //btn.enabled = true;
-    }
-	public void run()
+    
+   
+	void run()
 	{
 		//run the "Run" button
 
@@ -179,4 +168,25 @@ public class Submit : MonoBehaviour {
 		if(list.text.Length <= 1)
 			run ();
 	}
+    public void Test()
+    {
+        //btn.enabled = false;
+        compile();
+        if (list.text.Length <= 1)
+        {
+            submit();
+        }
+
+        else
+            ToastManager.Show("Compilation Error", 2.0f, Color.white, Color.blue, 14);
+        //btn.enabled = true;
+    }
+    public void Compile()
+    {
+        // btn.enabled = false;
+        compile();
+        //btn.enabled = true;
+        ToastManager.Show("Compilation compeleted.");
+    }
 }
+
