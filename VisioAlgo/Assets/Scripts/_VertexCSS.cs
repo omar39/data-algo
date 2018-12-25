@@ -11,12 +11,12 @@ public class _VertexCSS : MonoBehaviour {
     private Vector3 offset;
 
     void Start () {
-        //we must do this don't know why though
-        //Edges = new List<GameObject>();
-        //Connected_Vertices = new List<GameObject>();
+        /// never ever un comment this for unfuking known reasons  
+        ///Edges = new List<GameObject>();
+        ///Connected_Vertices = new List<GameObject>();
     }
-	
-	void Update () {        
+
+    void Update () {        
         for(int i = 0; i != Edges.Count; i++)
         {
             Edges[i].GetComponent<LineRenderer>().SetPosition(0, gameObject.transform.position);

@@ -74,13 +74,13 @@ public class LinkedStackCSS : MonoBehaviour
         yield return StartCoroutine(Move_Head());
         yield return StartCoroutine(Connect_Head_Pointer());
 
-        New_Node.GetComponent<NodeCSS>().Set_Interact(true);
+        New_Node.GetComponent<NodeCSS>().Set_Interact(false);
         if(Nodes_Objects.Count > 1)
             New_Node.GetComponent<NodeCSS>().Set_Next_pointer_Position(Nodes_Objects[Nodes_Objects.Count - 2]);
         else
             New_Node.GetComponent<NodeCSS>().Set_Next_pointer_Position(Start_Position);
 
-        Head.GetComponent<HeadNodeCSS>().Set_Interact(true);
+        Head.GetComponent<HeadNodeCSS>().Set_Interact(false);
         Head.GetComponent<HeadNodeCSS>().Set_Next_pointer_Position(Nodes_Objects[Nodes_Objects.Count - 1]);
     }
 
@@ -100,7 +100,7 @@ public class LinkedStackCSS : MonoBehaviour
     private IEnumerator Move_Head()
     {
         //yield return Head.GetComponent<HeadNodeCSS>().Move_Head(Nodes_Objects.Peek().transform.position, Horizontal_Offset, Vertical_Offset);
-        yield return Head.GetComponent<HeadNodeCSS>().Move_Head(Node_Positions[Node_Positions.Count - 1], Horizontal_Offset, Vertical_Offset);
+        yield return Head.GetComponent<HeadNodeCSS>().Move_Head(Node_Positions[Node_Positions.Count - 1], Horizontal_Offset - 1.5f, Vertical_Offset + 2);
     }
 
     private IEnumerator Connect_Head_Pointer()
@@ -119,7 +119,10 @@ public class LinkedStackCSS : MonoBehaviour
         Nodes_Objects.RemoveAt(Nodes_Objects.Count - 1);
         Node_Positions.RemoveAt(Node_Positions.Count - 1);
 
-        Head.GetComponent<HeadNodeCSS>().Set_Next_pointer_Position(Nodes_Objects[Nodes_Objects.Count - 1]);
+        if(Nodes_Objects.Count > 0)
+            Head.GetComponent<HeadNodeCSS>().Set_Next_pointer_Position(Nodes_Objects[Nodes_Objects.Count - 1]);
+        else
+            Head.GetComponent<HeadNodeCSS>().Set_Next_pointer_Position(Start_Position);
 
         Pop_Sequence(Pop_Button);
     }

@@ -14,76 +14,66 @@ public class Submit : MonoBehaviour {
     public MaterialButton btn;
     public MaterialDropdown Problem_list;
     public MaterialDropdown Topic_list;
-    FileStream FS;
-   // ProcessStartInfo processinfo;
+
     void submit()
     {
         try
         {
-            string path = Directory.GetCurrentDirectory() + @"Problems\" + Topic_list.currentlySelected + @"\" + Problem_list.currentlySelected;
-            ProcessStartInfo processinfo = new ProcessStartInfo("a.exe");
-            processinfo.RedirectStandardInput = true;
-            processinfo.RedirectStandardInput = true;
-            processinfo.UseShellExecute = false;
+            string path = @"\Problems\" + Topic_list.currentlySelected.ToString() + @"\" + Problem_list.currentlySelected.ToString();
+            string sourcePath = Directory.GetCurrentDirectory();
+            string destPath = sourcePath + path;
+            string sourceFile = Path.Combine(sourcePath, "a.exe");
+            string destFile = Path.Combine(destPath + @"\input", "a.exe");
+            File.Copy(sourceFile, destFile, true);
+            sourceFile = destFile = "";
+            sourceFile = Path.Combine(sourcePath, "submit.bat");
+            destFile = Path.Combine(destPath + @"\input", "submit.bat");
+            File.Copy(sourceFile, destFile, true);
+
+            ProcessStartInfo processinfo = new ProcessStartInfo(sourcePath + path + @"\input\submit.bat");
             processinfo.CreateNoWindow = true;
-            FileStream FS;
-            string[] ans = new string[10];
-            for (int i = 1; i <= 10; ++i)
+            processinfo.UseShellExecute = false;
+            var process = Process.Start(processinfo);
+            Stopwatch sw = Stopwatch.StartNew();
+            while (!process.HasExited)
             {
-                
-                string tmp = "";
-                FS = new FileStream(path + @"\input" + @"\input" + i.ToString() + ".txt", FileMode.Open);
-                StreamReader SR = new StreamReader(FS);
-                SR.Close();FS.Close();
-                Process runtime = Process.Start(processinfo);
-                runtime.StandardInput.WriteLine(SR.ReadToEnd());
-                char c = (char)runtime.StandardOutput.Read();
-                Stopwatch sw = Stopwatch.StartNew();
-                while (sw.Elapsed.TotalMilliseconds < 2000 && c != '\uffff' && tmp.Length <= 10000000)
+                if (sw.Elapsed.TotalMilliseconds >= 10000)
                 {
-
-                    if (c != '\f')
-                        tmp += c;
-                    if (sw.Elapsed.TotalMilliseconds > 2000)
+                    sw.Stop();
+                    foreach (var p in Process.GetProcessesByName("cmd"))
                     {
-                        sw.Stop();
-                        foreach (var process in Process.GetProcessesByName("a"))
-                        {
-                            process.Kill();
-                        }
-                        ToastManager.Show("Time Limit Exceeded on Test " + i.ToString(), 2.0f, Color.white, Color.red, 20);
-                        return;
+                        p.Kill();
                     }
-                    c = (char)runtime.StandardOutput.Read();
+                    foreach (var p in Process.GetProcessesByName("a"))
+                    {
+                        p.Kill();
+                    }
+                    print("time limit");
+                    ToastManager.Show("Time limit exceeded", 2.0f, Color.white, new Color32(0, 230, 118, 255), 20);
+                    return;
                 }
-                //tmp = runtime.StandardOutput.ReadToEnd ();
-                sw.Stop();
-                runtime.Close();
-                ans[i - 1] = tmp;
-            }
-            //list.text = null;
-            //char[] limit = new char[2];
-            //limit[0] = '/';
-            //limit[1] = 'f';
-            //string[] str = tmp.Split(limit);
 
-            int index = 0;
+            }
+            int code = process.ExitCode;
+            process.Close();
+            print(code);
             for (int i = 1; i <= 10; ++i)
             {
-                FS = new FileStream(path + @"\output" + @"\output" + i.ToString() + ".txt", FileMode.Open);
-                StreamReader SR = new StreamReader(FS);
+                FileStream result = new FileStream(sourcePath + path + @"\input\output" + i.ToString() + ".txt", FileMode.Open);
+                FileStream output = new FileStream(sourcePath + path + @"\output\output" + i.ToString() + ".txt", FileMode.Open);
+                StreamReader SR = new StreamReader(result);
                 string res = SR.ReadToEnd();
-                if (!ans[i-1].Contains(res))
+                SR = new StreamReader(output);
+                string main = SR.ReadToEnd();
+                SR.Close(); result.Close(); output.Close();
+                if (!main.Contains(res))
                 {
-                    FS.Close(); SR.Close();
-                   // UnityEngine.Debug.Log("expected " + res +" found "  + str[i]);
                     ToastManager.Show("Wrong Answer on Test " + i.ToString(), 2.0f, Color.white, Color.red, 20);
                     return;
                 }
-                SR.Close(); FS.Close();
-                index += 2;
             }
             ToastManager.Show("Accepted", 2.0f, Color.white, Color.green, 20);
+            
         }
         catch (Exception exc) { UnityEngine.Debug.Log(exc.Message); return; }
         
@@ -92,6 +82,7 @@ public class Submit : MonoBehaviour {
     {
         //code of compile button
         list.text = null;
+        FileStream FS;
         //taking the code in a cpp file named "code.cpp"
         FS = new FileStream("code.cpp", FileMode.Truncate);
         StreamWriter SW = new StreamWriter(FS);
@@ -154,9 +145,9 @@ public class Submit : MonoBehaviour {
 
 			}
 			list.text = tmp;
-
-			runtime.Close();
-		}
+            runtime.Close();
+            print(runtime.ExitCode);
+        }
 		catch(Exception ex) {
 			runtime.Close();
 		}

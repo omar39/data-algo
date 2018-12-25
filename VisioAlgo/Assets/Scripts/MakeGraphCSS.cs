@@ -36,6 +36,43 @@ public class MakeGraphCSS : MonoBehaviour {
             Edges[Edges.Count - 1].transform.position = Edge_Instantiate_Point.transform.position;
             Edges[Edges.Count - 1].GetComponent<LineRenderer>().SetPosition(1, Edge_Instantiate_Point.transform.position);
         }
+
+        var Direction = Input.GetAxis("Mouse ScrollWheel");
+
+        if (Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.LeftControl))
+        {
+            if (Direction < 0)
+            {
+                Camera.main.transform.position += new Vector3(1, 0, 0);
+                gameObject.transform.position += new Vector3(1, 0, 0);
+            }
+            else
+            if (Direction > 0)
+            {
+                Camera.main.transform.position += new Vector3(-1, 0, 0);
+                gameObject.transform.position += new Vector3(-1, 0, 0);
+            }
+        }
+        else
+        if (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift))
+        {
+            if (Direction < 0)
+            {
+                Camera.main.transform.position += new Vector3(0, -1, 0);
+                gameObject.transform.position += new Vector3(0, -1, 0);
+            }
+            else
+            if (Direction > 0)
+            {
+                Camera.main.transform.position += new Vector3(0, 1, 0);
+                gameObject.transform.position += new Vector3(0, 1, 0);
+            }
+        }
+        else
+        if (Direction != 0)
+        {
+            Camera.main.orthographicSize += (Direction > 0) ? -1 : 1;
+        }
     }
 
     void OnMouseDown()
@@ -94,6 +131,7 @@ public class MakeGraphCSS : MonoBehaviour {
                             Vertices[j].GetComponent<CircleCollider2D>().enabled = true;
                         }
                         Edge_Instantiate_Point.SetActive(false);
+                        Instantiate_Edge = false;
                         break;
                     }
                 }
@@ -119,7 +157,7 @@ public class MakeGraphCSS : MonoBehaviour {
 
     public void Set_Instantiate_Edge(bool instantiate_edge)
     {
-        if (Instantiate_Vertex)
+        if (Instantiate_Vertex || Vertices.Count < 2)
             return;
 
         Instantiate_Edge = instantiate_edge;

@@ -16,7 +16,6 @@ public class ArrayStackCSS : MonoBehaviour {
     Stack<GameObject> Cells_Objects;
     Button Push_Button;
     float Offset;
-
     GameObject value;
 
 	void Start () {
@@ -42,6 +41,7 @@ public class ArrayStackCSS : MonoBehaviour {
         Push_Button.enabled = false;
 
         GameObject New_Node = Instantiate(Value, Instantiate_Point.transform.position + new Vector3(1, 0, 0), Quaternion.identity);
+        New_Node.transform.parent = gameObject.transform;
         New_Node.GetComponent<ValueCSS>().Set_Value(Pushed_Value.text);
         New_Node.GetComponent<ValueCSS>().Set_Value_Size(Trail.GetComponent<TrailCSS>().Cell_Number_size);
         New_Node.GetComponent<ValueCSS>().Set_Node_Speed(Value_Speed);
@@ -69,8 +69,6 @@ public class ArrayStackCSS : MonoBehaviour {
 
     private IEnumerator Push_Seq(GameObject New_Node)
     {
-
-
         yield return StartCoroutine(Move_Circle(Top.transform.GetChild(1)));
         Set_Top_Value();
         yield return StartCoroutine(Move_Value(New_Node));
@@ -86,7 +84,8 @@ public class ArrayStackCSS : MonoBehaviour {
     }
 
     private void Set_Top_Value()
-    {     
+    {
+        Top.transform.GetChild(0).gameObject.SetActive(true);
         Top.transform.GetChild(0).GetComponent<TextMeshPro>().text = Cells_Objects.Count.ToString();
     }
 

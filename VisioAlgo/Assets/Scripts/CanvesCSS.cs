@@ -7,7 +7,8 @@ using TMPro;
 
 public class CanvesCSS : MonoBehaviour {
 
-    public  GameObject Pen;
+    public GameObject Pen;
+    public Image Preview_Color; 
     private Color32 Pen_Color;
     private int Pen_Layer;
     private Vector3 screenPoint;
@@ -34,12 +35,14 @@ public class CanvesCSS : MonoBehaviour {
 	
 	void Update () {
 
-            for (int t = 0; t != Pens.Count; t++)
-            {
-                Pens[t].GetComponent<TrailRenderer>().time++;
-                //Pens[t].GetComponent<TrailRenderer>().material.color = new Color32((byte)Red, (byte)Green, (byte)Blue, (byte)0);
-                //= new Color(Red, Green, Blue);     
-            }
+       // Preview_Color.color = new Color32((byte)Red, (byte)Green, (byte)Blue, (byte)255);
+
+        for (int t = 0; t != Pens.Count; t++)
+        {
+            Pens[t].GetComponent<TrailRenderer>().time++;
+            //Pens[t].GetComponent<TrailRenderer>().material.color = new Color32((byte)Red, (byte)Green, (byte)Blue, (byte)0);
+            //= new Color(Red, Green, Blue);     
+        }
 
         var Direction = Input.GetAxis("Mouse ScrollWheel");
 
@@ -56,11 +59,9 @@ public class CanvesCSS : MonoBehaviour {
                 Camera.main.transform.position += new Vector3(-1, 0, 0);
                 gameObject.transform.position += new Vector3(-1, 0, 0);
             }
-            //doesn't work
-            //gameObject.transform.position = Camera.main.transform.position;
         }
         else
-        if(Direction != 0)
+        if (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift))
         {
             if (Direction < 0)
             {
@@ -73,11 +74,12 @@ public class CanvesCSS : MonoBehaviour {
                 Camera.main.transform.position += new Vector3(0, 1, 0);
                 gameObject.transform.position += new Vector3(0, 1, 0);
             }
-            //doesn't work
-            //gameObject.transform.position = Camera.main.transform.position;
         }
-        //doesn't work
-        //gameObject.transform.position = Camera.main.transform.position;
+        else
+        if (Direction != 0)
+        {
+            Camera.main.orthographicSize += (Direction > 0) ? -1 : 1;
+        }
     }
   
     void OnMouseDown()
@@ -112,10 +114,8 @@ public class CanvesCSS : MonoBehaviour {
     
     public void Set_Draw()
     {
-        
-            Pen_Color = new Color32((byte)0, (byte)0, (byte)0, (byte)0);
-            Pen_Layer += 1;
-        
+        Pen_Color = new Color32((byte)0, (byte)0, (byte)0, (byte)0);
+        Pen_Layer += 1;
     }
 
     public void Set_Background_Color()
@@ -143,7 +143,9 @@ public class CanvesCSS : MonoBehaviour {
 
     public void Undo_Last_Opertation()
     {
-        //Redo.Push(Undo.Peek());
+        if (Pens.Count == 0)
+            return;
+
         Destroy(Pens[Pens.Count - 1]);
         Destroy(Undo.Peek());
         Pens.RemoveAt(Pens.Count - 1);
@@ -157,22 +159,17 @@ public class CanvesCSS : MonoBehaviour {
         //Undo.Pop();
     }
 
-    public void Set_Canves(bool active)
+    public void Redo_Last_Opertation()
     {
-        gameObject.SetActive(true);
+        GameObject Old_Pen = Instantiate(Pen, Redo.Peek().transform.position, Quaternion.identity);
+        Old_Pen = Redo.Peek();
+
+        Pens.Add(Old_Pen);
+        Redo.Pop();
     }
-
-    //public void Redo_Last_Opertation()
-    //{
-    //    GameObject Old_Pen = Instantiate(Pen, Redo.Peek().transform.position, Quaternion.identity);
-    //    Old_Pen = Redo.Peek();
-
-    //    Pens.Add(Old_Pen);
-    //    Redo.Pop();
-    //}
 
     public void Inverse_Colors(Button button)
     {
-        button.GetComponent<MaterialButton>().icon.color = new Color32((byte)(255 - Red), (byte)(255 - Green), (byte)(255 - Blue), (byte)0);
+        button.GetComponent<MaterialButton>().icon.color = new Color32((byte)(255 - Red), (byte)(255 - Green), (byte)(255 - Blue), (byte)255);
     }
 }

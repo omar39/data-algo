@@ -52,6 +52,11 @@ public class TrailCSS : MonoBehaviour {
         return Number_Of_Cells;
     }
 
+    public Vector3 Get_Cell_Position(int index)
+    {
+        return (Cell_Numbers[index].transform.position);
+    }
+
     public IEnumerator Move_Circle(GameObject Circle, int Index, float Circle_Speed)
     {
         while(Circle.transform.position != Cell_Numbers[Index].transform.position)
@@ -69,6 +74,9 @@ public class TrailCSS : MonoBehaviour {
             yield return StartCoroutine(Draw_Cell(Start_Position.transform.position + new Vector3(Cell_Width * cell, 0, 0)));
 
             GameObject New_Node = Instantiate(Cell_Number, Start_Position.transform.position + new Vector3(Cell_Width * (cell + 1) - (Cell_Width / 2), -Cell_Height, 0), Quaternion.identity);
+
+            New_Node.transform.parent = Start_Position.transform;
+
             New_Node.GetComponent<ValueCSS>().Set_Value_Size(Cell_Number_size);
             New_Node.GetComponent<ValueCSS>().Set_Value(cell.ToString());
             New_Node.GetComponent<ValueCSS>().Set_Node_Speed(0);
